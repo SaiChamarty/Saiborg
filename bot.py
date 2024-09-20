@@ -59,7 +59,13 @@ async def on_message(message):
             for attachment in message.attachments:
                 if attachment.filename.lower().endswith(('jpg', 'jpeg', 'png', 'gif', 'heic', 'mov', 'mp4', 'avi')):
                     image_url = attachment.url
-                    await googlePhotosAPI.download_and_upload_to_google_photos(image_url, 'Orientation 2024')
+                    guild = message.guild
+                    if guild.name == "Transfer Orientation 363":
+                        await googlePhotosAPI.download_and_upload_to_google_photos(image_url, 'Orientation 2024')
+                    elif guild.name == "Orientation Group 368":
+                        await googlePhotosAPI.download_and_upload_to_google_photos(image_url, 'Freshman Orientation 2024')
+                    else:
+                        await googlePhotosAPI.download_and_upload_to_google_photos(image_url, 'Saiborg test')
                     response = "File has been uploaded to the album!"
                     embed = discord.Embed(title = response)
                     await message.channel.send(embed = embed)
@@ -67,11 +73,27 @@ async def on_message(message):
     await client.process_commands(message)
 
 @client.command()
+async def link(ctx):
+    #send them the album link
+    guild = ctx.guild
+    if guild.name == "Orientation Group 368":
+        em = discord.Embed(title="Album link", description="https://photos.app.goo.gl/R4qjPTbT5VAqwgGq7")
+    elif guild.name == "Trasfer Group 363":
+        em = discord.Embed(title="Album link", description="https://photos.app.goo.gl/dCS4yWQ1ZZmKKwGS9")
+    else:
+        em = discord.Embed(title="Album link", description="https://photos.app.goo.gl/d2XZH2bSaU7M87tPA")
+    
+    await ctx.send(embed=em)
+
+
+
+@client.command()
 async def help(ctx):
     # display a help message with available commands.
     em = discord.Embed(title="Help", description="List of commands")
     commands_list = [
         ("s.help", "Shows this message"),
+        ("s.link", "Sends the link to the shared pictures album"),
         ("s.singlesudoku", "Starts a single player 4x4 Sudoku game\nCommands: \ns.endsudoku: ends the game. \ns.placenum <row> <col> <number>: places a number on [row, col] of the board. \ns.removenum <row> <col>: removes the number on [row, col] of the board.\nThis is single player 4x4 sudoku game."),
         ("s.multisudoku", "Starts a 9x9 multiplayer Sudoku game\nCommands: \ns.end: ends the game. \ns.place <row> <col> <number>: places a number on [row, col] of the board. \ns.remove <row> <col>: removes the number on [row, col] of the board.\nThis is 9x9 multiplayer sudoku that requires teamwork and coordination! It is difficult but really interesting.")
     ]

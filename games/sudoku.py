@@ -96,7 +96,7 @@ class SudokuGame:
     # places a number on [row, col] of the sudoku board
     async def placenum(self, player_id, row, col, number):
         if player_id not in self.game_state:
-            return "You don't have an ongoing Sudoku game. Start a new game with `s.startsudoku`."
+            return "You don't have an ongoing Sudoku game. Start a new game with `s.singlesudoku`."
         
         state = self.game_state[player_id]
         board = state['board']
@@ -134,7 +134,7 @@ class SudokuGame:
     # remove a number from [row, col] of a sudoku board
     async def removenum(self, player_id, row, col):
         if player_id not in self.game_state:
-            return "You don't have an ongoing Sudoku game. Start a new game with `s.startsudoku`."
+            return "You don't have an ongoing Sudoku game. Start a new game with `s.singlesudoku`."
         
         state = self.game_state[player_id]
         board = state['board']
@@ -256,7 +256,7 @@ class sudoku10:
     # places a number on [row, col] of the sudoku board
     async def placenum(self, channel_id, row, col, number):
         if channel_id not in self.channel_game_state:
-            return "You don't have an ongoing Sudoku game. Start a new game with `s.startsudoku`."
+            return "You don't have an ongoing Sudoku game. Start a new game with `s.multisudoku`."
         
         state = self.channel_game_state[channel_id]
         board = state['board']
@@ -294,7 +294,7 @@ class sudoku10:
     # remove a number from [row, col] of a sudoku board
     async def removenum(self, channel_id, row, col):
         if channel_id not in self.channel_game_state:
-            return "You don't have an ongoing Sudoku game. Start a new game with `s.startsudoku`."
+            return "You don't have an ongoing Sudoku game. Start a new game with `s.multisudoku`."
         
         state = self.channel_game_state[channel_id]
         board = state['board']
